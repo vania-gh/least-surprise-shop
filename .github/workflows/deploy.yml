@@ -67,9 +67,11 @@ jobs:
       - name: Run container
         run: docker run -d -p 8080:80 --name least-surprise ghcr.io/${{ github.repository }}:1.0.0
 
-      - name: Test website
-        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8080
-
+            - name: Test website
+        run: |
+          docker ps -a
+          docker logs least-surprise
+          curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8080
 
 
   deploy:
