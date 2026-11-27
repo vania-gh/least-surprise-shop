@@ -70,10 +70,17 @@ jobs:
 
       - name: Test website
         run: |
-          docker ps -a
-          docker logs least-surprise
-          curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8080
+          echo "Checking nginx config..."
+          docker exec least-surprise nginx -t || true
 
+          echo "Checking container processes..."
+          docker exec least-surprise ps aux || true
+
+          echo "Waiting for nginx..."
+          sleep 3
+
+          echo "Testing website..."
+          curl -v --fail --retry 5 --retry-all-errors --retry-delay 2 http://localhost:8080
 
   deploy:
     needs: check
