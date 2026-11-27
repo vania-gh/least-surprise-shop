@@ -52,15 +52,48 @@ Preview production build:
 
 ## Docker
 
-Build the image:
+### Build locally
 
-    docker build -t least-surprise .
+```bash
+docker build -t least-surprise .
+```
+
+### Run locally
+
+```bash
+docker run --rm -p 8080:80 least-surprise
+```
+
+Open http://localhost:8080
+
+### Pull and run from GitHub Container Registry
+
+Pull the published image:
+
+```bash
+docker pull ghcr.io/vania-gh/least-surprise-shop:1.0.0
+```
 
 Run the container:
 
-    docker run --rm -p 8080:80 least-surprise
+```bash
+docker run -d -p 8080:80 --name least-surprise ghcr.io/vania-gh/least-surprise-shop:1.0.0
+```
+
+You can also use the `latest` tag:
+
+```bash
+docker pull ghcr.io/vania-gh/least-surprise-shop:latest
+```
 
 Open http://localhost:8080
+
+Stop and remove the container:
+
+```bash
+docker stop least-surprise
+docker rm least-surprise
+```
 
 ## CI
 
